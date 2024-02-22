@@ -1,47 +1,28 @@
-﻿
-var imie = "EWA";
-var wiek = "30";
-var plec = "K";
+﻿// zad5, zliczanie wystapienia cyfr w liczbie
 
 
-Console.WriteLine("Witam \n prosze o podaniu kilku danych:\n");
-Console.WriteLine("Podaj imie\n"); ;
-imie = Console.ReadLine().ToUpper();
-Console.WriteLine("Podaj wiek\n");
-wiek = Console.ReadLine();
-Console.WriteLine("Podaj plec K/M");
-plec = Console.ReadLine().ToUpper();
+int[] counters = new int[58];//ascii 48=0 - 58=9
+string cypherStr;
 
+Console.WriteLine("\n\n Zliczamy wystąpienie cyfr w liczbie, podaj swoją\t\n");
+cypherStr = Console.ReadLine();
 Console.Clear();
-//Console.WriteLine("\n\n\n\tDane wprowadzone to: \n\t\t Twoie imie "+imie+" Twoj wiek: "+wiek+" Plec: "+plec);
-try
+Console.WriteLine($"Twoja liczba to {cypherStr}\n");
+Console.WriteLine($"Składa sie z {cypherStr.Length} znaków");
+Console.WriteLine($"Ilość znaków:\n");
+
+foreach (char c in cypherStr)
 {
-    if (plec == "K" && Int16.Parse(wiek) < 30)
-    {
-        Console.Clear();
-        Console.WriteLine("\n\t Kobieta ponizej 30 lat\n");
-    }
-    else if (imie == "EWA" && wiek == "30" && plec == "K")
-    {
-        Console.Clear();
-        Console.WriteLine("\n\n\t Ewa lat 30\n");
+    int index = (int)c;
 
-    }
-    else if (plec == "M" && Int16.Parse(wiek) < 30)
-    {
-        Console.Clear();
-        Console.WriteLine("\nMezczyzna niepelnoletni\n");
-    }
-    else
-    {
-        Console.Clear();
+    Console.Write(c + " ");
 
-    }
-
+    counters[index] = counters[index] + 1;
 }
-catch (Exception ex)
+Console.WriteLine();
+
+for (int index = 48; index < 58; index++)
 {
-    Console.Clear();
-    Console.Write("Dane wprowadzane zawieraly nieprawidlowe wartosci i wystapil blad systemowy:\n\n" + ex.Message.ToString());
-    Console.WriteLine("\n\n\n\n\n\n");
+    Console.WriteLine($"liczba {index - 48} wystepuje {counters[index]}");
+
 }
