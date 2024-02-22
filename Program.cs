@@ -1,28 +1,69 @@
-﻿// zad5, zliczanie wystapienia cyfr w liczbie
+﻿using ChallengeApp;
 
+using System.Diagnostics.Metrics;
+using System.Runtime.CompilerServices;
 
-int[] counters = new int[58];//ascii 48=0 - 58=9
-string cypherStr;
+Console.WriteLine("Pracownicy");
+Console.WriteLine("");
 
-Console.WriteLine("\n\n Zliczamy wystąpienie cyfr w liczbie, podaj swoją\t\n");
-cypherStr = Console.ReadLine();
-Console.Clear();
-Console.WriteLine($"Twoja liczba to {cypherStr}\n");
-Console.WriteLine($"Składa sie z {cypherStr.Length} znaków");
-Console.WriteLine($"Ilość znaków:\n");
+List<Employee> employees = new List<Employee>();
 
-foreach (char c in cypherStr)
+employees.Add(new Employee("Adam", "Wróbel", 34));
+employees.Add(new Employee("ewa", "Kowalska", 32));
+employees.Add(new Employee("Ada", "Wasik", 23));
+
+employees[0].AddScore(9);
+employees[0].AddScore(1);
+employees[0].AddScore(9);
+employees[0].AddScore(1);
+employees[0].AddScore(9);
+
+employees[1].AddScore(4);
+employees[1].AddScore(1);
+employees[1].AddScore(10);
+employees[1].AddScore(10);
+employees[1].AddScore(1);
+
+employees[2].AddScore(1);
+employees[2].AddScore(1);
+employees[2].AddScore(2);
+employees[2].AddScore(1);
+employees[2].AddScore(10);
+
+int[] temp;
+
+Console.WriteLine("Employee1 scores\n");
+temp = employees[0].GetAllScores();
+foreach (int t in temp)
 {
-    int index = (int)c;
+    Console.Write(t + " ");
 
-    Console.Write(c + " ");
-
-    counters[index] = counters[index] + 1;
 }
-Console.WriteLine();
 
-for (int index = 48; index < 58; index++)
+Console.WriteLine("\nEmployee2 scores\n");
+temp = employees[1].GetAllScores();
+foreach (int t in temp)
 {
-    Console.WriteLine($"liczba {index - 48} wystepuje {counters[index]}");
+    Console.Write(t + " ");
 
 }
+
+Console.WriteLine("\nEmployee3 scores\n");
+temp = employees[2].GetAllScores();
+foreach (int t in temp)
+{
+    Console.Write(t + " ");
+
+}
+
+
+// searched employee with high score
+int counter = employees.Count();
+int[] scores = new int[counter];
+for (int i = 0; i < counter; i++)
+{
+    scores[i] = employees[i].SumScore();
+}
+counter = Array.IndexOf(scores, scores.Max());
+employees[counter].ShowEmployee();
+
