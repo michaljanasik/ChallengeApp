@@ -26,8 +26,8 @@ namespace challangeApp.Test
         [Test]
         public void referencesTest()
         {
-            Employee e1 = new Employee("bartek", "kania", 23);
-            Employee e2 = new Employee("asia", "kania", 13);
+            User e1 = new User("bartek", "kania", 23);
+            User e2 = new User("asia", "kania", 13);
 
 
             e1 = e2;//pointing the same memory place

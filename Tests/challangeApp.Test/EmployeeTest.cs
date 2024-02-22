@@ -9,7 +9,7 @@ namespace challangeApp.Test
         [Test]
         public void IfScoreIsGraterThen_2_ExamIsPassed()
         {//Arrange
-            Employee e1 = new Employee("Iza", "Kapusta", 25);
+            User e1 = new User("Iza", "Kapusta", 25);
             e1.AddScore(-1);
             e1.AddScore(6);
             e1.AddScore(10);

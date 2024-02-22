@@ -11,42 +11,28 @@ namespace ChallengeApp
     {
         private string name;
         private string surname;
-        private int age;
+        
 
-        private List<int> scores = new List<int>();
+        private List<float> grades = new List<float>();
         public Employee() { }
-        public Employee(string Name, string Surname, int Age)
+        public Employee(string Name, string Surname)
         {
             this.name = Name;
             this.surname = Surname;
-            this.age = Age;
+           
         }
-        public void AddScore(int Score)
-        {
-            if (Score >= 1 && Score <= 10)
-            {
-               this.scores.Add(Score);
-            }
-            else if (Score < 0 && Score >= -10)
-            {
-                this.scores.Add(Score);
-            }
-            else
-            {
-                Console.WriteLine("Can add 1-10 only\n");
-            }
+        public string Name {
+            get;
+            private set; 
         }
-        public int[] GetAllScores()
+        public string Surname
         {
-            return this.scores.ToArray();
+            get;
+            private set;
         }
-        public int SumScore()
+        public void AddGrade(float grade)
         {
-            return this.scores.Sum();
-        }
-        public void ShowEmployee()
-        {
-            Console.WriteLine($"\n\nImie {this.name} Nazwisko {this.surname} wiek {this.age} punkty {this.SumScore()}\t");
+            this.grades.Add(grade);
         }
     }
 }

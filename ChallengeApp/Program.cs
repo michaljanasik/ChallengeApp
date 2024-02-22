@@ -6,34 +6,34 @@ using System.Runtime.CompilerServices;
 Console.WriteLine("Pracownicy");
 Console.WriteLine("");
 
-List<Employee> employees = new List<Employee>();
+List<User> users = new List<User>();
 
-employees.Add(new Employee("Adam", "Wróbel", 34));
-employees.Add(new Employee("ewa", "Kowalska", 32));
-employees.Add(new Employee("Ada", "Wasik", 23));
+users.Add(new User("Adam", "Wróbel", 34));
+users.Add(new User ("ewa", "Kowalska", 32));
+users.Add(new User("Ada", "Wasik", 23));
 
-employees[0].AddScore(9);
-employees[0].AddScore(1);
-employees[0].AddScore(9);
-employees[0].AddScore(1);
-employees[0].AddScore(9);
+users[0].AddScore(9);
+users[0].AddScore(1);
+users[0].AddScore(9);
+users[0].AddScore(1);
+users[0].AddScore(9);
 
-employees[1].AddScore(5);
-employees[1].AddScore(-1);
-employees[1].AddScore(10);
-employees[1].AddScore(10);
-employees[1].AddScore(10);
+users[1].AddScore(5);
+users[1].AddScore(-1);
+users[1].AddScore(10);
+users[1].AddScore(10);
+users[1].AddScore(10);
 
-employees[2].AddScore(1);
-employees[2].AddScore(1);
-employees[2].AddScore(2);
-employees[2].AddScore(1);
-employees[2].AddScore(10);
+users[2].AddScore(1);
+users[2].AddScore(1);
+users[2].AddScore(2);
+users[2].AddScore(1);
+users[2].AddScore(10);
 
 int[] temp;
 
 Console.WriteLine("Employee1 scores\n");
-temp = employees[0].GetAllScores();
+temp = users[0].GetAllScores();
 foreach (int t in temp)
 {
     Console.Write(t + " ");
@@ -41,7 +41,7 @@ foreach (int t in temp)
 }
 
 Console.WriteLine("\nEmployee2 scores\n");
-temp = employees[1].GetAllScores();
+temp = users[1].GetAllScores();
 foreach (int t in temp)
 {
     Console.Write(t + " ");
@@ -49,7 +49,7 @@ foreach (int t in temp)
 }
 
 Console.WriteLine("\nEmployee3 scores\n");
-temp = employees[2].GetAllScores();
+temp = users[2].GetAllScores();
 foreach (int t in temp)
 {
     Console.Write(t + " ");
@@ -58,12 +58,12 @@ foreach (int t in temp)
 
 
 // searched employee with high score
-int counter = employees.Count();
+int counter = users.Count();
 int[] scores = new int[counter];
 for (int i = 0; i < counter; i++)
 {
-    scores[i] = employees[i].SumScore();
+    scores[i] = users[i].SumScore();
 }
 counter = Array.IndexOf(scores, scores.Max());
-employees[counter].ShowEmployee();
+users[counter].ShowEmployee();
 
