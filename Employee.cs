@@ -25,7 +25,7 @@ namespace ChallengeApp
         {
             if (Score >= 1 && Score <= 10)
             {
-                this.scores.Add(Score);
+               this.scores.Add(Score);
             }
             else if (Score < 0 && Score >= -10)
             {
