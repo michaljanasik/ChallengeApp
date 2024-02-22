@@ -14,7 +14,7 @@ namespace ChallengeApp
         private int age;
 
         private List<int> scores = new List<int>();
-
+        public Employee() { }
         public Employee(string Name, string Surname, int Age)
         {
             this.name = Name;
