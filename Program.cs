@@ -18,11 +18,11 @@ employees[0].AddScore(9);
 employees[0].AddScore(1);
 employees[0].AddScore(9);
 
-employees[1].AddScore(4);
-employees[1].AddScore(1);
+employees[1].AddScore(5);
+employees[1].AddScore(-1);
 employees[1].AddScore(10);
 employees[1].AddScore(10);
-employees[1].AddScore(1);
+employees[1].AddScore(10);
 
 employees[2].AddScore(1);
 employees[2].AddScore(1);
