@@ -8,17 +8,37 @@ namespace challangeApp
 {
     public class Statistics
     {
+
+        float min, max, average;
+
         public Statistics()
         {
-            
+            this.Min = float.MaxValue;
+            this.Max = float.MinValue;
+            this.Average = 0;
         }
-        public float  Min{ get; set; }
-        public float Average { get; set; }
-        public float  Max{ get; set; }
-        public Statistics Getstatistics()
-        {
 
-            return  new Statistics();
+        //--------------------functions-------
+        public float Min
+        {
+            get { return this.min; }
+            set { this.min = value; }
         }
+        public float Average
+        {
+            get { return this.average; }
+            set { this.average = value; }
+        }
+        public float Max
+        {
+            get { return this.max; }
+            set { this.max = value; }
+        }
+
+
     }
+
+
+
 }
+
