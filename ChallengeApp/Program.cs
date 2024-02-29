@@ -1,51 +1,110 @@
 ﻿using challangeApp;
 
-var employee = new Employee("abc", "cda");
-Statistics st;
+var employee = new Employee();
+Statistics st = new Statistics();
+
+string answer;
+char esc;
+
 try
 {
-    /*
-     employee.AddGrade(2.2);
-     employee.AddGrade(2);
-     employee.AddGrade(10);
-     employee.AddGrade("29");
-     employee.AddGrade("23,5");
-     employee.AddGrade(23.56546);
-     employee.AddGrade(-10);
-     */
-    /*
-     employee.AddGrade(10.0000);
-     employee.AddGrade(10);
-     employee.AddGrade(10);
-     employee.AddGrade("10.0000");
-     employee.AddGrade("10");
-     employee.AddGrade(10);
-     employee.AddGrade(10);
-     employee.AddGrade("10,0000");
-    */
-    employee.AddGrade(-10.0000);
-    employee.AddGrade(10);
-    employee.AddGrade(10.00);
-    employee.AddGrade("10.0000");
-    employee.AddGrade("-10");
-    employee.AddGrade(10);
-    employee.AddGrade(10.00000);
-    employee.AddGrade("10,0000");
+    Console.Clear();
+    do
+    {
 
-    employee.showAllGrades();
+        Console.WriteLine("////Welcome in my programm\n\n");
+        Console.WriteLine("Choose option from Menu below");
+
+        Console.WriteLine("Add grade - A");
+        Console.WriteLine("Take a score  - B");
+        Console.WriteLine("Statistics - C");
+        // Console.WriteLine("Dodaj pracownika - D");
+        Console.WriteLine("Clear screen - E");
+
+        answer = Console.ReadLine();
+
+        esc = answer[0];
+        esc = char.ToUpper(esc);
+
+
+        switch (esc)
+        {
+            case 'A':
+                {
+                    int IntClear = 8;
+
+                    char[] TablChr;
+                    double mydouble;
+
+
+                    while (true)
+                    {
+                        IntClear--;
+
+                        if (IntClear == 0) Console.Clear();
+
+                        Console.WriteLine("Give a points or laetter's grade A-E\n");
+                        Console.WriteLine("Escape from menu pressing --Q");
+
+                        TablChr = (Console.ReadLine()).ToCharArray();
+                        double.TryParse(TablChr, out mydouble);
+
+                        if (char.IsLetter(TablChr[0]))
+                        {
+                            TablChr[0] = char.ToUpper(TablChr[0]);
+                            if (TablChr[0] == 'Q')
+                            {
+                                break;
+                            }
+                            else if (char.IsLetter(TablChr[0]))
+                            {
+                                employee.AddGrade(TablChr[0]);
+
+                            }
+                        }
+                        else
+                        {
+                            employee.AddGrade(mydouble);
+                        }
+
+
+                    }
+
+                    break;
+                }
+            case 'B':
+                {//60
+                    employee.showAllGrades();
+                    Console.ReadKey();
+                    break;
+                }
+            case 'C':
+                {//40
+                    employee.getStatistics();
+                    Console.ReadKey();
+                    break;
+                }
+            case 'D':
+                {//20
+
+                    break;
+                }
+            case 'E':
+                {
+                    Console.Clear();
+                    break;
+                }
+            default:
+                {
+                    // Console.WriteLine("wrong letter");
+
+                    break;
+                }
+        }
+    } while (esc != 'Q');
 }
+
 catch (Exception e)
 {
     Console.WriteLine(e.ToString());
 }
-st = employee.getStatistics();
-
-st = employee.getStatisticsDoWhile();
-Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");
-
-st = employee.getStatisticsWhile();
-Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");
-
-
-st = employee.getStatisticsFor();
-Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");

@@ -35,7 +35,6 @@ namespace challangeApp
             set { this.max = value; }
         }
 
-
     }
 
 
