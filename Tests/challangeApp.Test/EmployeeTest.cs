@@ -25,7 +25,7 @@ namespace challangeApp.Test
 
             [Test]
 
-            public void test()
+            public void CheckAverrage_ShouldBeEqualLikeGiven()
             {   //act  
                 Statistics StLocal;
 
@@ -39,8 +39,8 @@ namespace challangeApp.Test
 
             }
 
-            [Test]  //Main statistics used
-            public void test2()
+            [Test]  
+            public void MinimumValueShouldBeGreatherThenGiven()
             {
                 //Act
                 em1.AddGrade((float)4.0);
@@ -57,7 +57,7 @@ namespace challangeApp.Test
             [TestCase((float)1.2)]
             [TestCase((float)4.5)]
 
-            public void test3(float tmp)
+            public void MakeFewTestsAndExpectAverageAlwaysLessThenGiven(float tmp)
             {
                 //act
                 em1.AddGrade(tmp);
