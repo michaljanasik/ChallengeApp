@@ -56,8 +56,8 @@ namespace challangeApp
             }
             else
             {
-                Console.WriteLine($"\n\n\t{grade} ----  It is not possible to convert this" +
-                $" value to float from {grade.GetType()}----\n\n");
+                Console.WriteLine($"\n\n\t{grade} ---- It is not possible to convert this" +
+                $" value to float from {grade.GetType()} ----\n\n");
             }
         }
 
@@ -96,12 +96,13 @@ namespace challangeApp
         }
         //----------------------------
         //-----statistics    
-
+        //-----------------------1---------ForEach------
         public Statistics getStatistics()
         {
 
             var statistics = new Statistics();
 
+            Console.WriteLine("\n\tForEach\n");
 
             foreach (float grade in this.grades)
             {
@@ -117,11 +118,75 @@ namespace challangeApp
 
             return statistics;
         }
-        //------------------------------------------------------------------------
-        // helping functions
+        //--------------2--DoWhile----
+        public Statistics getStatisticsDoWhile()
+        {
 
-        object getLineLikeAnObject() { return (object)Console.ReadLine(); }
-        // void addGradeInfo(){Console.WriteLine("\n\ngive me the number from (+/-) 1-100\n\n");}
+            var statistics = new Statistics();
+            int index = 0;
 
+            Console.WriteLine("\n\n\tDo-While");
+            do
+            {
+                statistics.Max = Math.Max(statistics.Max, grades[index]);
+                statistics.Min = Math.Min(statistics.Min, grades[index]);
+                statistics.Average += grades[index];
+                index++;
+
+            } while (index < this.grades.Count);
+
+            //    statistics.Average = grades.Average();
+
+            Console.Write($"\t{statistics.Average} / {grades.Count}");
+            Console.Write($"\t{statistics.Average /= grades.Count}");
+
+            return statistics;
+        }
+        //----------------------3---------While-----------
+        public Statistics getStatisticsWhile()
+        {
+
+            var statistics = new Statistics();
+            int index = 0;
+
+            Console.Write("\tWhile\n");
+            while (index != this.grades.Count)
+            {
+                statistics.Max = Math.Max(statistics.Max, grades[index]);
+                statistics.Min = Math.Min(statistics.Min, grades[index]);
+                statistics.Average += grades[index];
+                index++;
+
+            }
+
+            //    statistics.Average = grades.Average();
+
+            Console.Write($"\t{statistics.Average} / {grades.Count}");
+            Console.Write($"\t{statistics.Average /= grades.Count}");
+
+            return statistics;
+        }
+        //----------------------4---------for-----------
+        public Statistics getStatisticsFor()
+        {
+
+            var statistics = new Statistics();
+
+            Console.Write("\tFor\n");
+
+            for (int index = 0; index < this.grades.Count; index++)
+            {
+                statistics.Max = Math.Max(statistics.Max, grades[index]);
+                statistics.Min = Math.Min(statistics.Min, grades[index]);
+                statistics.Average += grades[index];
+            }
+
+            //    statistics.Average = grades.Average();
+
+            Console.Write($"\t{statistics.Average} / {grades.Count}");
+            Console.Write($"\t{statistics.Average /= grades.Count}");
+
+            return statistics;
+        }
     }
 }

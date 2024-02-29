@@ -1,8 +1,5 @@
 ﻿using challangeApp;
 
-using System.Diagnostics.Metrics;
-using System.Runtime.CompilerServices;
-
 var employee = new Employee("abc", "cda");
 Statistics st;
 try
@@ -41,7 +38,14 @@ catch (Exception e)
 {
     Console.WriteLine(e.ToString());
 }
-
 st = employee.getStatistics();
 
+st = employee.getStatisticsDoWhile();
+Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");
+
+st = employee.getStatisticsWhile();
+Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");
+
+
+st = employee.getStatisticsFor();
 Console.WriteLine($"\n\nMin: {st.Min:N2}, Max: {st.Max:N2}, Average: {st.Average:N2}\n\n\n");
