@@ -10,12 +10,14 @@ namespace challangeApp
     {
 
         float min, max, average;
+        string letterGrade;
 
         public Statistics()
         {
             this.Min = float.MaxValue;
             this.Max = float.MinValue;
             this.Average = 0;
+            this.letterGrade = "XYZ";
         }
 
         //--------------------functions-------
@@ -34,10 +36,13 @@ namespace challangeApp
             get { return this.max; }
             set { this.max = value; }
         }
+        public string LetterGrade
+        {
+            get { return this.letterGrade; }
+            set { this.letterGrade = value; }
+        }
 
     }
-
-
 
 }
 

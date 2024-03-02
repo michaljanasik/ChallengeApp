@@ -1,110 +1,120 @@
 ﻿using challangeApp;
 
-var employee = new Employee();
-Statistics st = new Statistics();
+Employee empl = new Employee();
 
-string answer;
-char esc;
 
 try
 {
-    Console.Clear();
-    do
-    {
-
-        Console.WriteLine("////Welcome in my programm\n\n");
-        Console.WriteLine("Choose option from Menu below");
-
-        Console.WriteLine("Add grade - A");
-        Console.WriteLine("Take a score  - B");
-        Console.WriteLine("Statistics - C");
-        // Console.WriteLine("Dodaj pracownika - D");
-        Console.WriteLine("Clear screen - E");
-
-        answer = Console.ReadLine();
-
-        esc = answer[0];
-        esc = char.ToUpper(esc);
-
-
-        switch (esc)
-        {
-            case 'A':
-                {
-                    int IntClear = 8;
-
-                    char[] TablChr;
-                    double mydouble;
-
-
-                    while (true)
-                    {
-                        IntClear--;
-
-                        if (IntClear == 0) Console.Clear();
-
-                        Console.WriteLine("Give a points or laetter's grade A-E\n");
-                        Console.WriteLine("Escape from menu pressing --Q");
-
-                        TablChr = (Console.ReadLine()).ToCharArray();
-                        double.TryParse(TablChr, out mydouble);
-
-                        if (char.IsLetter(TablChr[0]))
-                        {
-                            TablChr[0] = char.ToUpper(TablChr[0]);
-                            if (TablChr[0] == 'Q')
-                            {
-                                break;
-                            }
-                            else if (char.IsLetter(TablChr[0]))
-                            {
-                                employee.AddGrade(TablChr[0]);
-
-                            }
-                        }
-                        else
-                        {
-                            employee.AddGrade(mydouble);
-                        }
-
-
-                    }
-
-                    break;
-                }
-            case 'B':
-                {//60
-                    employee.showAllGrades();
-                    Console.ReadKey();
-                    break;
-                }
-            case 'C':
-                {//40
-                    employee.getStatistics();
-                    Console.ReadKey();
-                    break;
-                }
-            case 'D':
-                {//20
-
-                    break;
-                }
-            case 'E':
-                {
-                    Console.Clear();
-                    break;
-                }
-            default:
-                {
-                    // Console.WriteLine("wrong letter");
-
-                    break;
-                }
-        }
-    } while (esc != 'Q');
+    Start();
+}
+catch (Exception ex)
+{
+    Console.WriteLine("\nMessages and errors:\n\t" + ex.Message + "\n\n");
+    Console.WriteLine("//---------------------------------FULL MESSAGE IS:-----------------------------------");
+    Console.WriteLine("\n\n" + ex + "\n\n");
+    Console.WriteLine("//------------------------------------------------------------------------------------");
+    Console.ReadKey();
+}
+finally
+{
+    Console.WriteLine("\n\n\t\tBye....");
 }
 
-catch (Exception e)
+
+
+//-----------------------------------------------------------
+//----------------------definicje funkcji--------------------
+//-----------------------------------------------------------
+
+int Start()
 {
-    Console.WriteLine(e.ToString());
+    string yourChoise = "";
+
+    while ((yourChoise) != "Q")
+    {
+
+        yourChoise = Menu();
+
+        if (yourChoise.Length > 0 && yourChoise.Length < 2)
+        {
+            if (char.IsAsciiLetterLower(yourChoise[0]))
+            {
+                char[] tmp = yourChoise.ToCharArray();
+                tmp[0] = char.ToUpper(tmp[0]);
+                yourChoise = tmp[0].ToString();
+            }
+            else if (yourChoise.Length == 0)
+            {
+                yourChoise = Menu();
+            }
+
+        }
+
+        ManageMenuChoise(yourChoise);
+    }
+
+    return 1;
+}
+
+string Menu()
+{
+    string key;
+
+    Console.WriteLine("\n\tWelcome in my programm\n");
+    Console.WriteLine("\tAdd grades -------- A");
+    Console.WriteLine("\tShow grade table -- G");
+    Console.WriteLine("\tShow statistics --- S");
+    Console.WriteLine("\tDelate Grades --- S");
+    Console.WriteLine();
+    Console.WriteLine("\tClear screen ------ C");
+    Console.WriteLine("\n\tQuit ---------------- Q\n");
+
+    return key = Console.ReadLine();
+}
+void ManageMenuChoise(string MyChoose)
+{
+    switch (MyChoose)
+    {
+        case "A": { AddDataToEmployee(); break; }
+        case "G": { ShowEmployeDatas(); break; }
+        case "S": { ShowStatisyics(empl.GetStatistics()); break; }
+        case "D": { DelateGrades(); break; }
+        case "C": { Console.Clear(); break; }
+    }
+
+}
+
+void AddDataToEmployee()
+{
+    while (true)
+    {
+        string dane;
+
+        Console.WriteLine("\nPodaj liczbe lub litere A-D\n");
+        Console.WriteLine("Exit by pressed Q");
+
+        dane = Console.ReadLine();
+        dane = dane.ToUpper();
+
+        if (dane[0] == 'Q') { break; }
+
+        empl.AddGrade(dane);
+
+        Console.WriteLine("Added");
+
+    }
+}
+void ShowEmployeDatas()
+{
+    empl.ShowGrades();
+    Console.WriteLine($"Name: {empl.Name}, Surname: {empl.Surname}," +
+        $" Grade:{empl.LetterGrade}, Average: {empl.Averrage}");
+}
+void ShowStatisyics(Statistics stat)
+{
+    Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average}  LetterGrade = {stat.LetterGrade}");
+}
+void DelateGrades()
+{
+    empl.DelateGrades();
 }

@@ -10,196 +10,146 @@ namespace challangeApp
     {
         string name;
         string surname;
-        char letterGrade;
+        string letterGrade;
+        float averrage, min, max;
 
-        private List<float> grades = new List<float>();
+        List<float> grades = new List<float>();
 
-
-        /*--------------------constructors----------------------------------*/
-        public Employee() { this.name = this.surname = ""; this.letterGrade = 'N'; }
-        public Employee(string Name, string Surname)
+        public Employee()
         {
-            this.name = Name;
-            this.surname = Surname;
+            this.name = "abc";
+            this.surname = "abc";
+            this.letterGrade = "F";
+            this.averrage = 0;
         }
-        /*--------------------------Show--------------------*/
-        public void showAllGrades()
+        public Employee(string name, string surname)
         {
-            List<float> tmpList = this.grades;
 
-            setUpLetterGradeFromGrades(this.grades);
-            Console.WriteLine("Emploees grades:\n");
-            int i = 0;
-            foreach (float element in tmpList)
+        }
+
+        public string Name
+        {
+            get { return this.name; }
+            private set { this.name = value; }
+        }
+        public string Surname
+        {
+            get { return this.surname; }
+            private set { this.surname = value; }
+        }
+        public string LetterGrade
+        {
+            set { this.letterGrade = value; }
+            get { return this.letterGrade; }
+        }
+        public float Averrage
+        {
+            set { this.averrage = value; }
+            get { return this.averrage; }
+        }
+        public float Min
+        {
+            set { this.averrage = value; }
+            get { return this.averrage; }
+        }
+        public float Max
+        {
+            set { this.averrage = value; }
+            get { return this.averrage; }
+        }
+        //---------------------------------------
+
+
+        public void AddGrade(string mystring)
+        {
+            if (mystring.Length > 0 && mystring.Length < 2)
             {
-                i++;
-                Console.WriteLine($"element {i}= {element},");
+                this.AddGrade(mystring[0]);
+            }
+            else
+            {
+                float number;
+
+                if (float.TryParse(mystring, out number))
+                {
+                    this.AddGrade(number);
+                }
+                else { throw new InvalidCastException("Conversion error"); }
             }
 
         }
-        //-------------------------------------
-        /*---------------------AddGrade------------------------------------*/
-        //-------------------float----------------------------------------------
+        public void AddGrade(char letter)
+        {
+            letter = char.ToUpper(letter);
+
+            switch (letter)
+            {
+                case 'A': { this.AddGrade(100); break; }
+                case 'B': { this.AddGrade(80); break; }
+                case 'C': { this.AddGrade(60); break; }
+                case 'D': { this.AddGrade(40); break; }
+                case 'E': { this.AddGrade(20); break; }
+            }
+
+
+        }
         public void AddGrade(float grade)
         {
-            if (grade >= 1 && grade <= 100)
+            if (grade <= 100 && grade > 0)
             {
-                this.grades.Add(grade);
-            }
-            else if (grade < 0 && grade >= -100)
-            {
+
                 this.grades.Add(grade);
             }
             else
             {
-                Console.WriteLine($"May add 1-100 only\t\tOne of Yours values is {grade}\n");
-                Console.ReadKey();
-            }
-
-        }
-        //-----------------------------char------------------------------
-        public void AddGrade(char grade)
-        {
-            grade = char.ToUpper(grade);
-
-            if (char.IsBetween(grade, 'A', 'E'))
-            {
-
-                this.letterGrade = grade;
-
-                switch (grade)
-                {
-                    case 'A':
-                        {
-
-                            this.grades.Add(81);
-                            break;
-                        }
-                    case 'B':
-                        {
-
-                            this.grades.Add(61);
-                            break;
-                        }
-                    case 'C':
-                        {
-
-                            this.grades.Add(41);
-                            break;
-                        }
-                    case 'D':
-                        {
-
-                            this.grades.Add(21);
-                            break;
-                        }
-                    case 'E':
-                        {
-
-                            this.grades.Add(1);
-                            break;
-                        }
-                    default:
-                        {
-
-                            break;
-                        }
-                }
-            }
-
-        }
-        //-----------------------------string-----------------------------
-
-        public void AddGrade(string grade)
-        {
-            float value;
-
-            if (float.TryParse(grade, out value))
-            {
-                AddGrade(value);
-
-            }
-            else
-            {
-                Console.WriteLine($"\n\n\t{grade} ---- It is not possible to convert this" +
-                $" value to float from {grade.GetType()} ----\n\n");
-                Console.ReadLine();
+                throw new ArgumentException("\n\n\tNumber must be between 1-100\n");
             }
         }
-        //----------------------double----------------------------
-        public void AddGrade(double grade)
+        //-----------------------------------------------------------------------------------------------------------
+        public void DelateGrades()
         {
-
-            grade = Math.Round(grade);
-            float value = (float)grade;
-
-            AddGrade(value);
-
+            this.grades.Clear();
         }
-        //-------------------------------------int-----------------------
-        public void AddGrade(int grade)
+        public void ShowGrades()
         {
+            PrepareDatasForStatistic(this.grades);
 
-            float value = (float)grade;
-
-            AddGrade(value);
-
-        }
-        /*----------------------------end of adgrade-------------------------*/
-        //--------------------------------------------------------------------
-
-        /*--------------------config grades----------------------------------*/
-        public void setUpLetterGradeFromGrades(List<float> mygrades)
-        {
-            if (mygrades.Count > 0)
-            {
-                float AvgScore = mygrades.Average();
-
-                if (AvgScore >= 80 && AvgScore <= 100)
-                {
-                    this.letterGrade = 'A';
-                }
-                else if (AvgScore >= 60 && AvgScore < 80)
-                {
-                    this.letterGrade = 'B';
-                }
-                else if (AvgScore >= 40 && AvgScore < 60)
-                {
-                    this.letterGrade = 'C';
-                }
-                else if (AvgScore >= 20 && AvgScore < 40)
-                {
-                    this.letterGrade = 'D';
-                }
-                else if (AvgScore >= 1 && AvgScore < 20)
-                {
-                    this.letterGrade = 'E';
-                }
-            }
-        }
-
-        //----------------------------
-        /*-----statistics-----------------------*/
-        public Statistics getStatistics()
-        {
-
-            var statistics = new Statistics();
-
-
+            int i = 0;
             foreach (float grade in this.grades)
             {
-                statistics.Max = Math.Max(statistics.Max, grade);
-                statistics.Min = Math.Min(statistics.Min, grade);
-                statistics.Average += grade;
+                i++;
+                Console.WriteLine($"Ocena {i} = {grade}");
+            }
+        }
+        void PrepareDatasForStatistic(List<float> ListOfGrades)
+        {
+            Statistics st = new Statistics();
+
+            this.Min = ListOfGrades.Min();
+            this.Max = ListOfGrades.Max();
+            this.Averrage = ListOfGrades.Sum() / ListOfGrades.Count();
+
+            switch (this.Averrage)
+            {
+                case > 80: { this.letterGrade = "A"; break; }
+                case > 60: { this.letterGrade = "B"; break; }
+                case > 40: { this.letterGrade = "C"; break; }
+                case > 20: { this.letterGrade = "D"; break; }
+                case > 1: { this.letterGrade = "E"; break; }
             }
 
-            //    statistics.Average = grades.Average();
-            Console.WriteLine($"Min: {statistics.Min}  Max: {statistics.Max}\n");
-            Console.Write($"\t{statistics.Average} / {grades.Count} =");
-            Console.Write($"\tAverage{statistics.Average /= grades.Count}");
-            Console.Write($"\tletterGrade: {this.letterGrade}");
+        }
+        public Statistics GetStatistics()
+        {
+            Statistics st = new Statistics();
 
-            return statistics;
+            PrepareDatasForStatistic(this.grades);
+            st.Min = this.Min;
+            st.Max = this.Max;
+            st.Average = this.Averrage;
+            st.LetterGrade = this.LetterGrade;
+
+            return st;
         }
     }
 }
