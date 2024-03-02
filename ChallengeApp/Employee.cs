@@ -6,37 +6,39 @@ using System.Threading.Tasks;
 
 namespace challangeApp
 {
-    public class Employee
+    public class Employee : Person
     {
-        string name;
-        string surname;
         string letterGrade;
         float averrage, min, max;
 
         List<float> grades = new List<float>();
 
-        public Employee()
+        public Employee() : this("no name")
         {
-            this.name = "abc";
-            this.surname = "abc";
+            this.Name = "abc";
+            this.Surname = "abc";
             this.letterGrade = "F";
             this.averrage = 0;
         }
-        public Employee(string name, string surname)
+        public Employee(string name)
         {
-
+            this.Name = name;
+            this.Surname = "abc";
+            this.letterGrade = "F";
+            this.averrage = 0;
+        }
+        public Employee(string Name, string Surname) : base(Name, Surname)
+        {
+            this.letterGrade = "F";
+            this.averrage = 0;
         }
 
-        public string Name
+        public Employee(string letter, float avr)
         {
-            get { return this.name; }
-            private set { this.name = value; }
+            this.letterGrade = letter;
+            this.averrage = avr;
         }
-        public string Surname
-        {
-            get { return this.surname; }
-            private set { this.surname = value; }
-        }
+
         public string LetterGrade
         {
             set { this.letterGrade = value; }
