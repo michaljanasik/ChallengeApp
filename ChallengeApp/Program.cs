@@ -187,11 +187,12 @@ void GetAnswerFromMenu(string yourChoice, string usrChoice)
                     case "G": { ShowDatas(usrChoice); break; }
                     case "S": { ShowStatistics(empl1.GetStatistics()); break; }
                     case "D": { DeleteGrades(usrChoice); break; }
-                    case "C": { Console.Clear(); break; }
+                    case "C": { Console.Clear(); GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
                 }
 
                 break;
             }
+        case "C": { GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
         case "Q": break;
 
     }
@@ -211,7 +212,7 @@ void AddData()
         dane = Console.ReadLine();
         dane = dane.ToUpper();
 
-        if (dane[0] == 'Q') { break; }
+        if (dane[0] == 'Q') { GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
 
         empl1.AddGrade(dane);
 
