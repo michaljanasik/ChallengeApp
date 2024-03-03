@@ -194,7 +194,7 @@ void GetAnswerFromMenu(string yourChoice, string usrChoice)
             }
         case "C": { GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
         case "Q": break;
-
+       
     }
 
 }

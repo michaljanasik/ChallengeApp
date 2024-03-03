@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace challangeApp
 {
-    public class Employee : Person
+    public class Employee:Person
     {
         string letterGrade;
         float averrage, min, max;
