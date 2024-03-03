@@ -1,6 +1,11 @@
 ﻿using challangeApp;
 
-Employee empl = new Employee();
+
+Employee empl1 = new Employee();
+Supervisor sup1 = new Supervisor();
+
+string yourChoice = "Z";
+string usrChoice = "no user";
 
 
 try
@@ -26,65 +31,175 @@ finally
 //----------------------definicje funkcji--------------------
 //-----------------------------------------------------------
 
-int Start()
+void Start()
 {
-    string yourChoise = "";
+    RunMenu();
 
-    while ((yourChoise) != "Q")
-    {
 
-        yourChoise = Menu();
-
-        if (yourChoise.Length > 0 && yourChoise.Length < 2)
-        {
-            if (char.IsAsciiLetterLower(yourChoise[0]))
-            {
-                char[] tmp = yourChoise.ToCharArray();
-                tmp[0] = char.ToUpper(tmp[0]);
-                yourChoise = tmp[0].ToString();
-            }
-            else if (yourChoise.Length == 0)
-            {
-                yourChoise = Menu();
-            }
-
-        }
-
-        ManageMenuChoise(yourChoise);
-    }
-
-    return 1;
 }
 
-string Menu()
+void RunMenu()
+{
+    string tmp = "Z";
+
+    while ((tmp) != "Q")
+    {                                   //all menus are giving Q to Esc
+        tmp = "Z";
+        tmp = MenuUsers();
+
+    }
+    if (usrChoice == "S" || usrChoice == "E")
+    {
+        tmp = "Z";
+        while (tmp != "Q")
+        {
+            tmp = MenuUsers();
+        }
+    }
+    usrChoice = "no user";
+    yourChoice = "Z";
+
+
+}
+
+//--------------------------------------Menu for users ---------------------------------------
+
+string MenuUsers()
 {
     string key;
 
     Console.WriteLine("\n\tWelcome in my programm\n");
-    Console.WriteLine("\tAdd grades -------- A");
+    Console.WriteLine($"\n\n Actually choosed user is: {usrChoice}.");
+    Console.WriteLine("\n\nChoose the user:\n");
+    Console.WriteLine("\tSupervaisor --------- S");
+    Console.WriteLine("\tEmployee ------------ E    Statistics and other funcions are working only for Employee");
+    Console.WriteLine("\n\t Manage user ------ M    To add grades and see statistics press M and follw subMenu");
+    Console.WriteLine("\nClear screen -------- C");
+
+    Console.WriteLine("\n\tQuit ---------------- Q\n");
+
+    key = Console.ReadLine();
+
+    if (key.Length > 0 && key.Length < 2)
+    {
+        if (char.IsAsciiLetterLower(key[0]))
+        {
+            char[] tmp = key.ToCharArray();
+            tmp[0] = char.ToUpper(tmp[0]);
+            key = tmp[0].ToString();
+        }
+
+    }
+    else if (key.Length == 0)
+    {
+        throw new Exception("\nwrong datas\n");
+    }
+    switch (key)
+    {
+        case "S":
+            usrChoice = "S";
+            break;
+        case "E":
+            usrChoice = "E";
+            break;
+        case "Q":
+            return key = "Q";
+            break;
+        case "M":
+            if (usrChoice == "no user") {; }
+            else { GetAnswerFromMenu(MenuInternal(), usrChoice); }
+            return key = "Z";
+            break;
+        case "C":
+            Console.Clear();
+            break;
+        default:
+            Console.WriteLine("Choose other one person or escape by - Q");
+            break;
+    }
+    return key;
+}
+//-------------------------------------Menu internal add/show datas-------------------
+string MenuInternal()
+{
+    string key;
+
+
+    Console.WriteLine("\n\tAdd grades -------- A");
     Console.WriteLine("\tShow grade table -- G");
     Console.WriteLine("\tShow statistics --- S");
     Console.WriteLine("\tDelate Grades --- S");
     Console.WriteLine();
     Console.WriteLine("\tClear screen ------ C");
+
     Console.WriteLine("\n\tQuit ---------------- Q\n");
 
-    return key = Console.ReadLine();
-}
-void ManageMenuChoise(string MyChoose)
-{
-    switch (MyChoose)
+    key = Console.ReadLine();
+
+    if (key.Length > 0 && key.Length < 2)
     {
-        case "A": { AddDataToEmployee(); break; }
-        case "G": { ShowEmployeDatas(); break; }
-        case "S": { ShowStatisyics(empl.GetStatistics()); break; }
-        case "D": { DelateGrades(); break; }
-        case "C": { Console.Clear(); break; }
+
+        if (char.IsAsciiLetterLower(key[0]))
+        {
+            char[] tmp = key.ToCharArray();
+            tmp[0] = char.ToUpper(tmp[0]);
+            key = tmp[0].ToString();
+        }
+
+
+
+    }
+    else if (yourChoice.Length == 0)
+    {
+        throw new Exception("\nwrong datas\n");
+    }
+
+    return key;
+}
+
+//--------------------------Menu; elaborate answer-------------------------------------------------
+
+void GetAnswerFromMenu(string yourChoice, string usrChoice)
+{
+
+
+    switch (usrChoice)
+    {
+        case "S":
+            {
+                switch (yourChoice)
+                {
+                    case "A": { AddData(); break; }
+                    case "G": { ShowDatas(usrChoice); break; }
+                    case "S": { ShowStatistics(sup1.GetStatistics()); break; }
+                    case "D": { DeleteGrades(usrChoice); break; }
+
+
+                    case "C": { Console.Clear(); break; }
+                }
+                break;
+            }
+        case "E":
+            {
+                switch (yourChoice)
+                {
+                    case "A": { AddData(); break; }
+                    case "G": { ShowDatas(usrChoice); break; }
+                    case "S": { ShowStatistics(empl1.GetStatistics()); break; }
+                    case "D": { DeleteGrades(usrChoice); break; }
+                    case "C": { Console.Clear(); break; }
+                }
+
+                break;
+            }
+        case "Q": break;
+
     }
 
 }
+//--------------------------------------Functions, the same for all users------------------------------
 
-void AddDataToEmployee()
+void AddData()
 {
     while (true)
     {
@@ -98,25 +213,44 @@ void AddDataToEmployee()
 
         if (dane[0] == 'Q') { break; }
 
-        empl.AddGrade(dane);
+        empl1.AddGrade(dane);
 
         Console.WriteLine("Added");
 
     }
 }
-void ShowEmployeDatas()
+//---------------------------------------------------------------------------
+
+void ShowDatas(string userChoise)
 {
-    empl.ShowGrades();
-    Console.WriteLine($"Name: {empl.Name}, Surname: {empl.Surname}," +
-        $" Grade:{empl.LetterGrade}, Average: {empl.Averrage}");
+    if (userChoise == "S")
+    {
+        sup1.ShowGrades();
+
+        Console.WriteLine($"Name: {sup1.Name}, Surname: {sup1.Surname}");
+
+    }
+    else
+    {
+
+        empl1.ShowGrades();
+
+        Console.WriteLine($"Name: {empl1.Name}, Surname: {empl1.Surname}," +
+        $" Grade:{empl1.LetterGrade}, Average: {empl1.Averrage}");
+    }
 }
-void ShowStatisyics(Statistics stat)
+//-----------------------------------------------------------
+void ShowStatistics(Statistics stat)
 {
     Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average}  LetterGrade = {stat.LetterGrade}");
 }
-void DelateGrades()
+//----------------------------------------------------------------------------------
+void DeleteGrades(string userChoise)
 {
-    empl.DelateGrades();
+    if (userChoise == "S") { sup1.DeleteGrades(); }
+    else { empl1.DelateGrades(); }
 }
 
 
+
+//-----------------------------------------The end-----------------------------------------------
