@@ -74,8 +74,8 @@ string MenuUsers()
     Console.WriteLine($"\n\n Actually choosed user is: {usrChoice}.");
     Console.WriteLine("\n\nChoose the user:\n");
     Console.WriteLine("\tSupervaisor --------- S");
-    Console.WriteLine("\tEmployee ------------ E    Statistics and other funcions are working only for Employee");
-    Console.WriteLine("\n\t Manage user ------ M    To add grades and see statistics press M and follw subMenu");
+    Console.WriteLine("\tEmployee ------------ E");
+    Console.WriteLine("\n\t Manage user ------ M");
     Console.WriteLine("\nClear screen -------- C");
 
     Console.WriteLine("\n\tQuit ---------------- Q\n");
