@@ -1,5 +1,7 @@
 ﻿using challangeApp;
 
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 Employee empl1 = new Employee();
 Supervisor sup1 = new Supervisor();
@@ -125,14 +127,14 @@ string MenuInternal()
     string key;
 
 
-    Console.WriteLine("\n\tAdd grades -------- A");
+    Console.WriteLine("\n\tAdd grades ------ A");
     Console.WriteLine("\tShow grade table -- G");
     Console.WriteLine("\tShow statistics --- S");
-    Console.WriteLine("\tDelate Grades --- S");
+    Console.WriteLine("\tDelate Grades ----- D");
     Console.WriteLine();
     Console.WriteLine("\tClear screen ------ C");
 
-    Console.WriteLine("\n\tQuit ---------------- Q\n");
+    Console.WriteLine("\n\tQuit -------------- Q\n");
 
     key = Console.ReadLine();
 
@@ -206,15 +208,25 @@ void AddData()
     {
         string dane;
 
-        Console.WriteLine("\nPodaj liczbe lub litere A-D\n");
-        Console.WriteLine("Exit by pressed Q");
+        switch (usrChoice) {
 
+            case "S":  
+                 Console.WriteLine("\n Give number from -1 to -10 or from 1 to 10");
+                  Console.WriteLine("Exit by pressed Q");
+                break;
+            case "E":
+                Console.WriteLine("\nPodaj liczbe lub litere A-D\n");
+                Console.WriteLine("Exit by pressed Q");
+
+                break;    
+         }
         dane = Console.ReadLine();
         dane = dane.ToUpper();
-
-        if (dane[0] == 'Q') { GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
-
-        empl1.AddGrade(dane);
+        
+       if (dane[0] == 'Q') { GetAnswerFromMenu(MenuInternal(), usrChoice); break; }
+        if (usrChoice == "S") { sup1.AddGrade(dane); }
+        else if (usrChoice=="E") { empl1.AddGrade(dane); }
+        
 
         Console.WriteLine("Added");
 
@@ -246,7 +258,18 @@ void AddData()
 //-----------------------------------------------------------
 void ShowStatistics(Statistics stat)
 {
-    Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average}  LetterGrade = {stat.LetterGrade}");
+    if (usrChoice == "S")
+    {
+        Console.WriteLine("\n Supervisor statistics:\n\n");
+        Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average} " +
+            $" LetterGrade = {stat.LetterGrade}");
+    }
+    else if(usrChoice=="E")
+    {
+        Console.WriteLine("\n Employees statistics:\n\n");
+        Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average} " +
+            $" LetterGrade = {stat.LetterGrade}");
+    }
     Console.ReadKey();
     GetAnswerFromMenu(MenuInternal(), usrChoice);
 }

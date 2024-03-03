@@ -11,6 +11,12 @@ namespace challangeApp
 
         string name;
         string surname;
+
+        float min;
+        float max;
+        float average;
+        string letterGrade;
+
         public string sayHello => throw new NotImplementedException("This is to see again...");
 
         List<float> grades = new List<float>();
@@ -24,58 +30,95 @@ namespace challangeApp
         public string Name
         {
             set { this.Name = value; }
-            get { return this.Name; }
+            get { return this.name; }
         }
         public string Surname
         {
             set { this.Surname = value; }
-            get { return this.Surname; }
+            get { return this.surname; }
+        }
+        public string LetterGrade
+        {
+            set { this.letterGrade = value; }
+            get { return this.letterGrade; }
+        }
+        public float Average
+        {
+            set { this.average = value; }
+            get { return this.average; }
+        }
+        public float Min
+        {
+            set { this.min = value; }
+            get { return this.min; }
+        }
+        public float Max
+        {
+            set { this.max = value; }
+            get { return this.max; }
         }
 
         //---------------------------------------------------------------------
         public void AddGrade(string mystring)
         {
-            if (mystring.Length > 0 && mystring.Length < 2)
+            char[] tmp=mystring.ToCharArray();
+
+            if (tmp[0] =='-')
             {
-                this.AddGrade(mystring[0]);
+                if (mystring.Length > 0 && mystring.Length <= 3)
+                {
+                    char[] txtchar = mystring.ToCharArray();
+                    float number;
+                    if (float.TryParse(txtchar, out number))
+                    {
+                        number=Math.Abs(number);
+                        number -= (float)0.5;
+                        this.AddGrade(number);
+                    }
+
+                }
             }
+            else if (mystring.Length > 0 && mystring.Length <= 2)
+            {
+                char[] txtchar = mystring.ToCharArray();
+                float number;
+                if (float.TryParse(txtchar, out number)) this.AddGrade(number);
+            }
+
             else
             {
-                float number;
-
-                if (float.TryParse(mystring, out number))
-                {
-                    this.AddGrade(number);
-                }
-                else { throw new InvalidCastException("Conversion error"); }
+                
+                throw new Exception("Error inside supervisor class - conversion"); 
             }
 
         }
+       
         public void AddGrade(char letter)
         {
             letter = char.ToUpper(letter);
 
             switch (letter)
             {
-                case 'A': { this.AddGrade(100); break; }
-                case 'B': { this.AddGrade(80); break; }
-                case 'C': { this.AddGrade(60); break; }
-                case 'D': { this.AddGrade(40); break; }
-                case 'E': { this.AddGrade(20); break; }
+                case 'A': { this.AddGrade(10); break; }
+                case 'B': { this.AddGrade(8); break; }
+                case 'C': { this.AddGrade(6); break; }
+                case 'D': { this.AddGrade(4); break; }
+                case 'E': { this.AddGrade(2); break; }
             }
 
 
         }
+       
         public void AddGrade(float grade)
         {
-            if (grade <= 100 && grade > 0)
+            if ((grade <= 10 && grade > 0)|| (grade >=- 10 && grade < 0))
             {
 
                 this.grades.Add(grade);
             }
             else
             {
-                throw new ArgumentException("\n\n\tNumber must be between 1-100\n");
+                throw new ArgumentException("\n\n\tNumber must be between (+/-)1-10\n");
             }
         }
 
@@ -92,23 +135,21 @@ namespace challangeApp
             }
         }
 
-        void PrepareDatasForStatistic(List<float> ListOfGrades)
+        void PrepareDatasForStatistic(List<float> Grades)
         {
-            Statistics st = new Statistics();
-            /*
-            this.Min = ListOfGrades.Min();
-            this.Max = ListOfGrades.Max();
-            this.Averrage = ListOfGrades.Sum() / ListOfGrades.Count();
+            this.Min = Grades.Min();
+            this.Max = Grades.Max();
+            this.Average = Grades.Sum() /Grades.Count();
 
-            switch (this.Averrage)
+            switch (this.Average)
             {
-                case > 80: { this.letterGrade = "A"; break; }
-                case > 60: { this.letterGrade = "B"; break; }
-                case > 40: { this.letterGrade = "C"; break; }
-                case > 20: { this.letterGrade = "D"; break; }
+                case > 8: { this.letterGrade = "A"; break; }
+                case > 6: { this.letterGrade = "B"; break; }
+                case > 4: { this.letterGrade = "C"; break; }
+                case > 2: { this.letterGrade = "D"; break; }
                 case > 1: { this.letterGrade = "E"; break; }
             }
-            */
+            
         }
 
 
@@ -120,9 +161,14 @@ namespace challangeApp
 
         public Statistics GetStatistics()
         {
-            Statistics st = new Statistics();
+            PrepareDatasForStatistic(this.grades);
 
-            throw new NotImplementedException("To do");
+            Statistics st = new Statistics();
+            st.Max= this.Max;
+            st.Min= this.Min;
+            st.Average = this.Average;
+            st.LetterGrade= this.LetterGrade;
+           
 
             return st;
         }
