@@ -222,14 +222,15 @@ void AddData()
 }
 //---------------------------------------------------------------------------
 
-void ShowDatas(string userChoise)
+ void ShowDatas(string userChoise)
 {
     if (userChoise == "S")
     {
         sup1.ShowGrades();
 
         Console.WriteLine($"Name: {sup1.Name}, Surname: {sup1.Surname}");
-
+        Console.ReadKey();
+        GetAnswerFromMenu(MenuInternal(), usrChoice);
     }
     else
     {
@@ -238,12 +239,16 @@ void ShowDatas(string userChoise)
 
         Console.WriteLine($"Name: {empl1.Name}, Surname: {empl1.Surname}," +
         $" Grade:{empl1.LetterGrade}, Average: {empl1.Averrage}");
+        Console.ReadKey();
+        GetAnswerFromMenu(MenuInternal(), usrChoice);
     }
 }
 //-----------------------------------------------------------
 void ShowStatistics(Statistics stat)
 {
     Console.WriteLine($"\n\nMin = {stat.Min} Max = {stat.Max}  Average = {stat.Average}  LetterGrade = {stat.LetterGrade}");
+    Console.ReadKey();
+    GetAnswerFromMenu(MenuInternal(), usrChoice);
 }
 //----------------------------------------------------------------------------------
 void DeleteGrades(string userChoise)
